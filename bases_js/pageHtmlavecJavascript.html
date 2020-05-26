@@ -1,0 +1,41 @@
+<html>
+<head>
+<title> exemple JavaScript simple </title>
+<script>
+	function affDlg(msg){
+		  alert(msg);
+	}
+
+	function affDoc(msg){
+  	          document.write(msg);
+	}
+	
+	function affInDivA(msg){
+  	          var divA=document.getElementById('divA');
+			  divA.innerHTML="message=<b>"+msg+"</b>";
+	}
+	
+	function displayInfos(){
+		var msg="...";
+		console.log(msg);
+		affInDivA(msg);
+	}
+
+</script>
+</head>
+<body onload="affInDivA('Chargement memoire effectue')">
+blabla<br/>
+<div id="divA"></div>
+<script>
+affDoc("Ligne1 <br/> Ligne2 generee via JavaScript <br/>")
+var chaine="Javascript"
+affDoc(chaine.toUpperCase().bold()) ; affDoc("<br/>")
+</script>
+fin-page <br/>
+
+<input type="button" value="b1-alert" onclick="affDlg('Click bouton')" ><br/>
+<input type="button" value="b2-prompt" onclick="console.log('nom='+prompt('votre nom?'));" ><br/>
+<input type="button" value="b3-confirm" onclick="console.log('confirm='+confirm('jouer a chat?'));" ><br/>
+<input type="button" value="b4-display-infos" onclick="displayInfos()" ><br/> 
+</body>
+</html>

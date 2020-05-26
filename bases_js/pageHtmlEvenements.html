@@ -1,0 +1,23 @@
+<html>
+<head>
+<title> with events </title>
+<script>
+	
+function registerEventsOnload() {
+
+  document.addEventListener("click", function() {
+    alert("parent event");
+       }, false);
+
+  document.getElementById("divA").addEventListener("click", function() {
+         alert("child event");
+      }, false);
+}
+</script>
+</head>
+<body onload="registerEventsOnload()">
+blabla<br/>
+<div id="divA">divA (click on Me)</div>
+
+</body>
+</html>
