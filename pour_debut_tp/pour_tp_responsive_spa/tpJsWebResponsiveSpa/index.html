@@ -8,63 +8,55 @@
  <script src="js/my_spa_util.js"></script>
 <script>
 
-function initMainPageAfterLoad(){
-	var btnP1 = document.getElementById("idP1");
-	btnP1.addEventListener('click', function(event) {
-		loadJsScript("js/euroToFranc.js",function(){
-			loadSubPart("idAlternativeSubPart","sp_euroToFranc.html","startEuroToFranc()")
-		});
-		
-	});
-	var btnP2 = document.getElementById("idP2");
-	btnP2.addEventListener('click', function(event) {
+function switchContent(partName){
+ switch(partName){
+	case "euroToFranc" :
+	    loadJsScript("js/euroToFranc.js", function(){
+		   loadSubPart("idAlternativeSubPart","sp_euroToFranc.html","startEuroToFranc()")
+		});	break;
+	case "graph" :
 	    loadJsScript("lib/chart.2.7.3.min.js");
-		loadJsScript("js/graph.js",function(){
+		loadJsScript("js/graph.js", function(){
 			loadSubPart("idAlternativeSubPart","sp_graph.html","startGraph()")
-		});
-	});
-	
-	var btnP3 = document.getElementById("idP3");
-	btnP3.addEventListener('click', function(event) {
-		loadJsScript("js/calculatrice.js",function(){
+		});	break;
+	case "calculatrice" :
+		loadJsScript("js/calculatrice.js", function(){
 			loadSubPart("idAlternativeSubPart","sp_calculatrice.html","startCalculatrice()")
-		});
-	});
-	
-	var btnP4 = document.getElementById("idP4");
-	btnP4.addEventListener('click', function(event) {
-		loadJsScript("js/dom_crud_devise.js",function(){
-		   loadSubPart("idAlternativeSubPart","sp_dom_crud_devise.html","startDomCrudDevise()")
-		});
-	});
-	
-	var btnP5 = document.getElementById("idP5");
-	btnP5.addEventListener('click', function(event) {
-		loadJsScript("js/dessin.js",function(){
+		});	break;
+	case "dom_crud_devise" :
+		loadJsScript("js/dom_crud_devise.js", function(){
+			loadSubPart("idAlternativeSubPart","sp_dom_crud_devise.html","startDomCrudDevise()")
+		});	break;
+	case "dessin" :
+		loadJsScript("js/dessin.js", function(){
 			loadSubPart("idAlternativeSubPart","sp_dessin.html","startDessin()")
-		});
-	});
-	
-	var btnP6 = document.getElementById("idP6");
-	btnP6.addEventListener('click', function(event) {
-		loadJsScript("js/news.js", function() {
+		});	break;
+	case "news" :
+		loadJsScript("js/news.js", function(){
 			loadSubPart("idAlternativeSubPart","sp_news.html","startNews()")
-		});
-	});
+		});	break;
+	case "welcome" :
+	default:
+		loadJsScript("js/welcome.js", function(){
+			loadSubPart("idAlternativeSubPart","sp_welcome.html","start_welcome()")
+		});	break;
+	}
 }
-window.addEventListener('load', initMainPageAfterLoad);
 
+window.onload=function(){
+		switchContent("welcome");
+}
 </script>
 </head>
 <body>
 <div class="container">
-   
-<input type="button" value="euroToFranc" id="idP1" /> -
-<input type="button" value="graphique" id="idP2" /> - 
-<input type="button" value="calculatrice" id="idP3" /> - 
-<input type="button" value="domCrudDevises" id="idP4" /> - 
-<input type="button" value="dessin" id="idP5" /> - 
-<input type="button" value="news" id="idP6" /> - 
+<input type="button" value="welcome" onclick="switchContent('welcome')" /> -   
+<input type="button" value="euroToFranc" onclick="switchContent('euroToFranc')" /> -
+<input type="button" value="graphique" onclick="switchContent('graph')" /> - 
+<input type="button" value="calculatrice" onclick="switchContent('calculatrice')" /> - 
+<input type="button" value="domCrudDevises" onclick="switchContent('dom_crud_devise')" /> - 
+<input type="button" value="dessin" onclick="switchContent('dessin')" /> - 
+<input type="button" value="news" onclick="switchContent('news')" /> - 
 
 <div id="idAlternativeSubPart">...</div>
 

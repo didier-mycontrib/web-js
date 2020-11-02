@@ -3,38 +3,19 @@ function startCalculatrice() {
 	//var zoneCbHisto = document.getElementById("cbHisto");
 	var zoneCbHisto = document.querySelector("#cbHisto"); //comme .css et comme jQuery
 	
-	zoneCbHisto.addEventListener("click", function (){
-		//console.log("click sur cbHisto " + zoneCbHisto.checked );
-		var zoneUlHisto = document.getElementById("ulHistorique");
-		if(zoneCbHisto.checked){
-			  zoneUlHisto.style.display = "block";
-		}else{
-			zoneUlHisto.style.display = "none";
-		}
-	});
-}
-
-
-var zoneRes;
-var cpt=0;
-
-function initZones(){
-	zoneRes=document.getElementById("spanRes");
+	zoneCbHisto.addEventListener("click",cacherOuMontrerHistorique);
 }
 
 function calculerOperation(pOperation){
-		  initZones();
-		  var a =  document.getElementById("a").value;
-		  console.log("a="+a);
-		  var b =   document.getElementById("b").value;
-		  console.log("b="+b);
+	var a =  document.getElementById("a").value;
+	console.log("a="+a);
+	var b =   document.getElementById("b").value;
+	console.log("b="+b);
 		  
-		  var res = 0;
-		  switch(pOperation){
+	var res = 0;
+	switch(pOperation){
 		  case '+':
-		      res = Number(a)+Number(b); // le + déclenche une concaténation entre 2 string
-		                 //ou bien une addition entre 2 choses numériques
-			  break;
+		      res = Number(a)+Number(b);   break;
 		  case '*':
 			  res=a*b;  break;
 		  case '-':
@@ -44,22 +25,32 @@ function calculerOperation(pOperation){
 		  default:
 			  res="?";  break;
 		   }
-		  
-		  //document.getElementById("spanRes").innerHTML = res;
-          zoneRes.innerHTML = res;
-		 
-		  var zoneUlHisto = document.getElementById("ulHistorique");
-          var noeudLi = document.createElement("li");
-		  cpt++;
-		  noeudLi.setAttribute("id","li"+cpt);
-		  zoneUlHisto.appendChild(noeudLi);
-		  var texteCalcul = "a="+a + " op=" + pOperation + 
-		     " b=" + b + " res=" +res;
-		  //var noeudTexte=document.createTextNode(texteCalcul);
-		  //noeudLi.appendChild(noeudTexte);
-		  noeudLi.innerHTML = texteCalcul;
+	var eltSpanRes = document.getElementById("spanRes");
+	eltSpanRes.innerHTML = res;
+	if(res >= 0)
+	  eltSpanRes.style.color = "rgb(0,150,0)";
+	else
+	  eltSpanRes.style.color = "red";
+	  
+	var zoneHistorique = document.getElementById("ulHistorique");
+	var li = document.createElement("li");
+	li.innerHTML=""+ a + pOperation + b +"="+res ;
+	li.style.fontStyle='italic';
+	zoneHistorique.appendChild(li);
+	}
+
+function cacherOuMontrerHistorique(){
+		var zoneHistorique = document.getElementById("ulHistorique");
+		//var zoneCheckBox = document.getElementById("cbHisto");
+		var zoneCheckBox = document.querySelector("#cbHisto");
+		if(zoneCheckBox.checked){
+			zoneHistorique.style.display="block";
+			//zoneHistorique.style.visibility="visible";
+		}else{
+			zoneHistorique.style.display="none";
+			//zoneHistorique.style.visibility="hidden";
 		}
-		
+	}
 		
 //******* partie y=f(x)	
 
