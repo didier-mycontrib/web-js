@@ -4,6 +4,7 @@ var zoneBodyTableau;
 var zoneCode;
 var zoneNom;
 var zoneChange;
+var zoneMsg;
 var idSelected; 
 var currentDevise;
 var tabDevises = []; // A synchroniser (via api REST) avec le coté serveur
@@ -16,6 +17,11 @@ function reInitEmptyDevise(){
 	idSelected=undefined;
 	currentDevise={ code : "" , nom : "" , change : "" };
 	displayDevise(currentDevise);
+	zoneMsg.innerHTML="";
+}
+
+function displayMessage(txt){
+    zoneMsg.innerHTML=txt?txt:"";
 }
 
 function loadDevisesWithAjax(){
@@ -65,8 +71,9 @@ function deleteOldDeviseWithAjax(oldDevise){
 	//************ A FAIRE EN TP ***************************
 	// var deleteUrl = URL qui va bien avec le bon code devise a supprimer à la fin
 	//***************************************
-	makeAjaxDeleteRequest(deleteUrl , afterDeleteOldDeviseWithAjaxCallback);
+	makeAjaxDeleteRequest(deleteUrl , afterDeleteOldDeviseWithAjaxCallback , displayMessage);
 }
+
 
 function afterDeleteOldDeviseWithAjaxCallback(texteReponse){
 	console.log("delete ajax response:" +  texteReponse);
@@ -92,6 +99,9 @@ function initialiserPage(){
 	zoneBodyTableau=document.getElementById("bodyTableau");
 	zoneCode=document.getElementById("code");
 	zoneNom=document.getElementById("nom");
+	zoneMsg=document.getElementById("msg");
+	zoneSearchCode=document.getElementById("searchCode");
+	zoneSearchResult=document.getElementById("searchResult");
 	zoneChange=document.getElementById("change");
 	
 	loadDevisesWithAjax();
@@ -246,5 +256,7 @@ function remplacerValeursDeLigneDansTableau(devise){
 		  listeTd[2].innerHTML=devise.change;
 	   }
 }
+
+
 
 

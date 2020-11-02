@@ -31,10 +31,7 @@ function makeAjaxPostRequest(url,jsonData,callback,errCallback) {
 	var xhr = new XMLHttpRequest();
 	registerCallbacks(xhr,callback,errCallback);
 	xhr.open("POST", url, true);
-	//************ A FAIRE EN TP ***************************
-	//appeler xhr.setRequestHeader(...,...);
-	//pour fixer "Content-Type" à la valeur "application/json"
-	//******************************************************
+	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.send(jsonData);
 }
 
