@@ -27,6 +27,8 @@ function startDomCrudDevise(){
 	if(firstInit==true){
 		tabDevises.push({code:'EUR' , nom : 'Euro' , change : 1})
 		tabDevises.push({code:'USD' , nom : 'Dollar' , change : 1.1})
+		tabDevises.push({code:'GBP' , nom : 'Livre' , change : 0.9})
+        tabDevises.push({code:'JPY' , nom : 'Yen' , change : 123.45})
 		firstInit=false;
 	}
 	
@@ -138,14 +140,16 @@ function tabDeviseElementFromCode(code){
 
 function mettreEnValeurLigneSelectionnee(selectedTr){
 	var trNodeList = zoneBodyTableau
-	        .getElementsByTagName("tr");
+	.getElementsByTagName("tr");
 	var nbLines = trNodeList.length;
 	for(i=0;i<nbLines;i++){
 		var tr = trNodeList.item(i);
 		if(tr == selectedTr){
-			tr.querySelector("td").style.backgroundColor="lightblue";
+			tr.querySelector("td").style.fontWeight="bold";
+			tr.querySelector("td").style.fontStyle="italic";
 		}else{
-			tr.querySelector("td").style.backgroundColor="white";
+			tr.querySelector("td").style.fontWeight="normal";
+			tr.querySelector("td").style.fontStyle="normal";
 		}
 	}
 }

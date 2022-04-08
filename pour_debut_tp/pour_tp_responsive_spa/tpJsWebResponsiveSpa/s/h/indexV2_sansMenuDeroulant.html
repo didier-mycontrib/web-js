@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>tpJsWebResponsiveSpa</title>
-<link rel="stylesheet" href="./css/bootstrap.min.css">
+ <link rel="stylesheet" href="./css/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="css/layout.css" />
  <link rel="stylesheet" type="text/css" href="css/styles.css" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- for responsive bootstrap on mobile device -->
  <script src="js/my_ajax_util.js"></script>
@@ -49,17 +50,25 @@ window.onload=function(){
 </script>
 </head>
 <body>
-<div style="margin-left:1em;"> <!-- div temporaire pour V1 seulement -->
-<input type="button" value="welcome" onclick="switchContent('welcome')" /> -   
-<input type="button" value="euroToFranc" onclick="switchContent('euroToFranc')" /> -
-<input type="button" value="graphique" onclick="switchContent('graph')" /> - 
-<input type="button" value="calculatrice" onclick="switchContent('calculatrice')" /> - 
-<input type="button" value="domCrudDevises" onclick="switchContent('dom_crud_devise')" /> - 
-<input type="button" value="dessin" onclick="switchContent('dessin')" /> - 
-<input type="button" value="news" onclick="switchContent('news')" /> - 
-
-<div id="idAlternativeSubPart">...</div>
-</div>
-
+<header class="stickyHeader">
+    <h3 id="appTitle">My-App</h3>
+	<nav> 
+		<input type="button" value="welcome" onclick="switchContent('welcome')" /> - 
+		<input type="button" value="euroToFranc" onclick="switchContent('euroToFranc')" /> -
+		<input type="button" value="graphique" onclick="switchContent('graph')" /> - 
+		<input type="button" value="calculatrice" onclick="switchContent('calculatrice')" /> - 
+		<input type="button" value="domCrudDevises" onclick="switchContent('dom_crud_devise')" /> - 
+		<input type="button" value="dessin" onclick="switchContent('dessin')" /> - 
+		<input type="button" value="news" onclick="switchContent('news')" /> - 
+	</nav>
+</header>
+ <main id="mainContent" class="mainContentUnderStickyHeader mainContentAboveStickyFooter">
+   <section class="container-fluid">
+        <div id="idAlternativeSubPart">...</div>
+   </section>
+  </main>
+  <footer class="stickyFooter">
+      <h4>pied de page (liens, mentions légales)</h4>
+   </footer>
 </body>
 </html>
