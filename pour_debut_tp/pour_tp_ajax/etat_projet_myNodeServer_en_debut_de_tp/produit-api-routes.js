@@ -1,4 +1,6 @@
-var express = require('express');
+//var express = require('express');
+import express from 'express' ;
+
 const apiRouter = express.Router();
 
 var allProduits =[];
@@ -10,8 +12,8 @@ allProduits.push({ code : 4 , nom : 'stylo' , prix : 1.9 });
 
 
 function findProduitInArrayByCode(produits,code){
-    var produit=null;
-    for(i in produits){
+    let produit=null;
+    for(let i in produits){
         if(produits[i].code == code){
             produit=produits[i]; break;
         }
@@ -20,21 +22,21 @@ function findProduitInArrayByCode(produits,code){
 }
 
 function removeProduitInArrayByCode(produits,code){
-    var delIndex;
-    for(i in produits){
+    let delIndex;
+    for(let i in produits){
         if(produits[i].code == code){
             delIndex=i; break;
         }
     }
     if(delIndex){
-      produits.splice(i,1);
+      produits.splice(delIndex,1);
     }
 }
 
 
 function findProduitsWithPrixMini(produits,prixMini){
-    var selProduits=[];
-    for(i in produits){
+    let selProduits=[];
+    for(let i in produits){
         if(produits[i].prix >= prixMini){
             selProduits.push(produits[i]);
         }
@@ -46,8 +48,8 @@ function findProduitsWithPrixMini(produits,prixMini){
 //exemple URL: http://localhost:8282/produit-api/public/produit/1
 apiRouter.route('/produit-api/public/produit/:code')
 .get( function(req , res , next ) {
-    var codeProduit = req.params.code;
-    var produit = findProduitInArrayByCode(allProduits,codeProduit);
+    let codeProduit = req.params.code;
+    let produit = findProduitInArrayByCode(allProduits,codeProduit);
     res.send(produit);
 });
 
@@ -56,7 +58,7 @@ apiRouter.route('/produit-api/public/produit/:code')
 // http://localhost:8282/produit-api/public/produit?prixMini=1.05
 apiRouter.route('/produit-api/public/produit')
 .get( function(req , res , next ) {
-    var prixMini = req.query.prixMini;
+    let prixMini = req.query.prixMini;
     if(prixMini){
         res.send(findProduitsWithPrixMini(allProduits,prixMini));
     }else{
@@ -64,12 +66,14 @@ apiRouter.route('/produit-api/public/produit')
     }
 });
 
-// http://localhost:8282/produit-api/private/role-admin/produit en mode post
+// http://localhost:8282/produit-api/private/produit en mode post
 // avec { "code" : null , "nom" : "produitXy" , "prix" : 12.3 }
 //ou bien { "nom" : "produitXy" , "prix" : 12.3 }dans req.body
-apiRouter.route('/produit-api/private/role-admin/produit')
+apiRouter.route('/produit-api/private/produit')
 .post( function(req , res , next ) {
-    var nouveauProduit = req.body;
+    let nouveauProduit = req.body;
+    //console.log("req.body="+req.body);
+    //let nouveauProduit = JSON.parse(req.body);
     //simulation auto_incr :
     if(nouveauProduit.code == null){
         codeMax++; nouveauProduit.code = codeMax;
@@ -79,14 +83,14 @@ apiRouter.route('/produit-api/private/role-admin/produit')
     res.send(nouveauProduit);
 });
 
-// http://localhost:8282/produit-api/private/role-admin/produit en mode PUT
+// http://localhost:8282/produit-api/private/produit en mode PUT
 // avec { "code" : 1 , "nom" : "produit_xy" , "prix" : 16.3 } dans req.body
-apiRouter.route('/produit-api/private/role-admin/produit')
+apiRouter.route('/produit-api/private/produit')
 .put( function(req , res , next ) {
-    var newValueOfProduitToUpdate = req.body;
+    let newValueOfProduitToUpdate = req.body;
     console.log("PUT,newValueOfProduitToUpdate="
             +JSON.stringify(newValueOfProduitToUpdate));
-    var produitToUpdate =
+    let produitToUpdate =
     findProduitInArrayByCode(allProduits,newValueOfProduitToUpdate.code);
     if(produitToUpdate!=null){
         produitToUpdate.nom = newValueOfProduitToUpdate.nom;
@@ -98,13 +102,13 @@ apiRouter.route('/produit-api/private/role-admin/produit')
     }
 });
 
-// http://localhost:8282/produit-api/private/role-admin/produit/1 
+// http://localhost:8282/produit-api/private/produit/1 
 // en mode DELETE
-apiRouter.route('/produit-api/private/role-admin/produit/:code')
+apiRouter.route('/produit-api/private/produit/:code')
 .delete( function(req , res , next ) {
-    var codeProduit = req.params.code;
+    let codeProduit = req.params.code;
     console.log("DELETE,codeProduit="+codeProduit);
-    var produitToDelete =
+    let produitToDelete =
         findProduitInArrayByCode(allProduits,codeProduit);
     if(produitToDelete){
       removeProduitInArrayByCode(allProduits,codeProduit);
@@ -115,4 +119,5 @@ apiRouter.route('/produit-api/private/role-admin/produit/:code')
     }
 });
 
-module.exports.apiRouter = apiRouter;
+//export { apiRouter };//pour import * as produitApiRoutes from './produit-api-routes-memory.js';
+export default { apiRouter };//pour import produitApiRoutes from './produit-api-routes-memory.js';
